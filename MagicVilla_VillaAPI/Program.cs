@@ -1,3 +1,6 @@
+
+using Serilog;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,9 +10,24 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Customer SeriLog(Third party) top log information into files by add NugetPackage SeriLog.Sink.File
+//Create SeriLog by using Debug(can be verbose,warning, etc), write to assigned folder and file name, also specify interval to create a new file. Finally create Logger
+
+//Log.Logger = new LoggerConfiguration().MinimumLevel.Debug().WriteTo.File("log/villaLogs.txt", rollingInterval:RollingInterval.Day).CreateLogger();
+
+// Specify using Serilog from builder, this will tell the ILogger which logging service is used without changing code in Controller
+
+//builder.Host.UseSerilog();
+
+// add customised ILogger service, ie.e specify what is the implementation for ILogging service. AddSignlton, AddScoped, AddTransient spicfied different lifespan of the service
+//builder.Services.AddSingleton<ILogging, Logging>();
+
+
 // Add NewtonsoftJason for HttpPatch, otherwise couldn't parse Json Object
 // options specify to accept Json format only, however can add XML formatting
-builder.Services.AddControllers(option => option.ReturnHttpNotAcceptable=true).AddNewtonsoftJson().AddXmlDataContractSerializerFormatters();
+builder.Services.AddControllers(option => { 
+    //option.ReturnHttpNotAcceptable = true; 
+}).AddNewtonsoftJson().AddXmlDataContractSerializerFormatters();
 
 var app = builder.Build();
 
