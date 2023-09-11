@@ -1,4 +1,6 @@
 
+using MagicVilla_VillaAPI.Data;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultSQLConnection")));
 
 //Customer SeriLog(Third party) top log information into files by add NugetPackage SeriLog.Sink.File
 //Create SeriLog by using Debug(can be verbose,warning, etc), write to assigned folder and file name, also specify interval to create a new file. Finally create Logger
