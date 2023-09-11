@@ -1,4 +1,5 @@
 
+using MagicVilla_VillaAPI;
 using MagicVilla_VillaAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -12,6 +13,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultSQLConnection")));
+
+//add service for auto mapper
+builder.Services.AddAutoMapper(typeof(MappingConfig));
 
 //Customer SeriLog(Third party) top log information into files by add NugetPackage SeriLog.Sink.File
 //Create SeriLog by using Debug(can be verbose,warning, etc), write to assigned folder and file name, also specify interval to create a new file. Finally create Logger
