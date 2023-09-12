@@ -18,6 +18,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 
 //Add interface to service
 builder.Services.AddScoped<IVillaRepository,VillaRepository>();
+builder.Services.AddScoped<IVillaNumberRepository,VillaNumberRepository>();
 
 //add service for auto mapper
 builder.Services.AddAutoMapper(typeof(MappingConfig));
